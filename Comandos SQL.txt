@@ -1,0 +1,88 @@
+---------criar banco-----------------
+CREATE DATABASE nome | `nome separado`;
+CREATE SCHEMA nome DEFAULT CHARACTER SET utf8 ;
+
+---------deletar banco-----------------
+DROP DATABASE nome;
+
+---------selecionar banco-----------------
+USE `nome do banco`
+
+---------criar tabela-----------------
+CREATE TABLE nome
+(nome_campo tipo(qnt),
+nome varchar(100),
+endereco varchar(150),
+cpf varchar(100))
+
+---------apagar tabela-----------------
+DROP TABLE banco.`nome tabela`;
+
+---------inserir dados na tabela-----------------
+INSERT INTO tabela (campo1, campo2) VALUES ('valor1', 'valor2');
+
+---------alterar registro-----------------
+UPDATE tabela SET campo1 = 'novo valor1', campo2 = novo_valor2 WHERE campo3 = 'valor_identificador';
+
+---------excluir registro-----------------
+DELETE FROM tabela (condição)
+
+---------alterar propriedade (inserindo chave primaria)-----------------
+ALTER TABLE tabela ADD PRIMARY KEY (campo);
+
+---------alterar propriedade (adicionando novo campo)-----------------
+ALTER TABLE tabela ADD COLUMN (CAMPO1 TIPO);
+
+---------condições-----------------
+>, >=, <, <=, =, <> 
+AND,OR,NOT,LIKE(%busca, busca%, %busca%)
+
+---------DISTINCT retorna somente linhas com valores diferentes-----------------
+SELECT DISTINCT * FROM tabela
+
+---------LIMIT limita o número de linhas exibidas-----------------
+SELECT * FROM tabela LIMIT 4
+SELECT * FROM tabela LIMIT 2,4
+
+---------ORDER BY ordena o resultado da consulta pelo campo determinado (DESC ordem decrescente)-----------------
+SELECT * FROM tabela ORDER BY campo1, campo2
+
+---------GROUP BY agrupar resposta----------------------------
+SELECT campos FROM tabela GROUP BY campo
+SUM: Soma
+MAX: Maximo
+MIN: Minimo
+AVG: Média
+COUNT: Conta ocorrências
+
+--------------HAVING condição que se aplica ao resultado de uma agregação----------------------------
+SELECT campo1, SUM(campo2), FROM tabela, GROUP BY campo1 HAVING SUM(campo2) >= numero
+
+--------------CASE realizar teste em um ou mais campos, e dependendo do resultado teremos um outro valor (classificação)----------------------------
+SELECT campo
+CASE
+WHEN condicao1 THEN valor1
+WHEN condicao2 AND condicao3 THEN valor2
+ELSE valor3
+END
+FROM tabela
+
+--------------JOIN possibilidade de unir uma ou mais tabelas através de campos em comum----------------------------
+SELECT tabela1.A, tabela2.B FROM tabela1 INNER JOIN tabela2 ON A.campo_igual = B.campo_igual
+
+INNER JOIN (correspondentes em ambas tabelas)
+LEFT JOIN (todos da tabela1 e somente os correspondentes da tabela2)
+RIGHT JOIN (todos da tabela2 e somente os correspondentes da tabela1)
+FULL JOIN (todos os valores de todas tabelas)
+
+CROSS JOIN (retorna produto cartesiano das duas tabelas) - SELECT tabela1.campo1, tabela2.campo2 FROM tabela1, tabela2
+
+--------------UNION faz união de duas ou mais tabelas----------------------------
+SELECT DISTINCT campo_igual FROM tabela1
+UNION/UNION ALL
+SELECT DISTINCT campo_igual FROM tabela2;
+
+--------------sub-consultas----------------------------
+SELECT campo1, campo2 FROM tabela1 WHERE campo2 IN (SELECT campo3 FROM tabela2)
+
+--------------VIEW tabela lógica, resultado de uma consulta que pode ser usada depois em outra consulta----------------------------
